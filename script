@@ -1,3 +1,15 @@
+This script defines a utility class ApprovalRequesterUtil in ServiceNow, which extends the AbstractAjaxProcessor class. The utility class is used to check if a user is self-approving a document.
+
+The class has the following methods:
+
+isSelfApprovingClient(): This method is used to check if the client user is self-approving a document. It takes the document ID from the client-side parameters and checks if the user who requested the approval is the same as the current user.
+
+isSelfApprovingServer(current): This method is similar to isSelfApprovingClient(), but it’s used on the server side. It takes a GlideRecord object as an argument and checks if the user who requested the approval for the document associated with this GlideRecord is the same as the current user.
+
+checkSelfApproving(document_id): This method is used by both isSelfApprovingClient() and isSelfApprovingServer() methods to check if the user who requested the approval for a document (identified by its ID) is the same as the current user. It returns true if they are the same, false otherwise.
+
+The type of this utility class is ‘ApprovalRequesterUtil’. This class can be used in ServiceNow scripts to prevent users from self-approving documents.
+
 var ApprovalRequesterUtil = Class.create();
 ApprovalRequesterUtil.prototype = Object.extendsObject(AbstractAjaxProcessor, {
     isSelfApprovingClient: function() {
