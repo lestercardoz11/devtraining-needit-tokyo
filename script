@@ -1,0 +1,22 @@
+var ApprovalRequesterUtil = Class.create();
+ApprovalRequesterUtil.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+    isSelfApprovingClient: function() {
+        return this.checkSelfApproving(this.getParameter('sysparm_document_id'));
+    },
+
+    isSelfApprovingServer: function(current) {
+        return this.checkSelfApproving(current.document_id);
+    },
+	
+	checkSelfApproving: function(document_id) {
+		var approvalGr = new GlideRecord('sn_vul_change_approval');
+
+        if (approvalGr.get(document_id) && approvalGr.getValue('requested_by') == gs.getUserID()) {
+            return true;
+        }
+		
+        return false;
+	},
+
+    type: 'ApprovalRequesterUtil'
+});
